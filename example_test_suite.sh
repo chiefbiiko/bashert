@@ -11,7 +11,7 @@ test_users_list_200() {
 
   assert_status "$resp_head" 200
 
-  count=$(jq '.[] | length' "$resp_body")
+  count=$(jq 'length' "$resp_body")
 
   assert_gt $count 0
 
