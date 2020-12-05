@@ -7,7 +7,8 @@ test_users_list_200() {
   lurc \
     -X GET \
     -D "$resp_head" \
-    "https://jsonplaceholder.typicode.com/users"
+    "https://jsonplaceholder.typicode.com/users" \
+  > "$resp_body"
 
   assert_status "$resp_head" 200
 
