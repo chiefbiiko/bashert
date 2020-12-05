@@ -1,5 +1,5 @@
-test_myresource_list_200() {
-  printf "test_myresource_list_200\n"
+test_users_list_200() {
+  printf "test_users_list_200\n"
 
   resp_head="$(mktemp)"
   resp_body="$(mktemp)"
@@ -7,7 +7,7 @@ test_myresource_list_200() {
   lurc \
     -X GET \
     -D "$resp_head" \
-    "https://my.api.com/myresource"
+    "https://jsonplaceholder.typicode.com/users"
 
   assert_status "$resp_head" 200
 
@@ -15,9 +15,9 @@ test_myresource_list_200() {
 
   assert_gt $count 0
 
+  id="$(jq -r '.[0].id' "$resp_body")"
   name="$(jq -r '.[0].name' "$resp_body")"
-  nick="$(jq -r '.[0].nick' "$resp_body")"
 
-  assert_equal "$name" "lamar"
-  assert_match "$nick" '^[a-zA-Z0-9_-]+$'
+  assert_equal "$id" "1"
+  assert_match "$name" '^[a-zA-Z0-9_- ]+$'
 }

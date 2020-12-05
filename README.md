@@ -1,10 +1,12 @@
 # api-bashin
 
+![ci](https://github.com/chiefbiiko/api-bashin/workflows/ci/badge.svg)
+
 a small suite of bash helpers to write easy api tests in pure bash :DD
 
-find all `assert_*` func declarations [in `mod.sh`](./mod.sh)
+find all `assert_*` helpers [in `mod.sh`](./mod.sh)
 
-## usage
+## usage (probly in a pipeline)
 
 1. source `mod.sh` from a local copy or via the network
 2. source a `bash` file containing your own test case definitions which are basically just `bash` function declarations
@@ -14,7 +16,7 @@ find all `assert_*` func declarations [in `mod.sh`](./mod.sh)
 source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/api-bashin/master/mod.ts)
 source ./example_test_suite.sh
 
-test_myresource_list_200
+test_users_list_200
 ```
 
 ## helpers
@@ -35,7 +37,8 @@ lurc() {
 }
 ```
 
-use `lurc` instead of plain `curl` to require `TLS 1.2` for every connection and silent curl as long as there are no errors
+
+use `lurc` instead of plain `curl` to require `TLS 1.2` for every connection and silent `curl` as long as there are no errors
 
 ## license
 

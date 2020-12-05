@@ -1,0 +1,23 @@
+name: ci
+
+on: push
+
+jobs:
+  test:
+    name: test api-bashin on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-11.0]
+    steps:
+      - uses: actions/checkout@v2.0.0
+
+      - uses: denolib/setup-deno@v2
+        with:
+          deno-version: v1.5.2
+
+      - name: run the example test case
+        run: |
+          source ./mod.sh
+          source ./example_test_suite.sh
+          test_users_list_200
