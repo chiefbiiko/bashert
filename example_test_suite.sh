@@ -17,8 +17,8 @@ test_users_list_200() {
   assert_gt $count 0
 
   id="$(jq -r '.[0].id' "$resp_body")"
-  name="$(jq -r '.[0].name' "$resp_body")"
+  username="$(jq -r '.[0].username' "$resp_body")"
 
   assert_equal "$id" "1"
-  assert_match "$name" '^[a-zA-Z0-9_- ]+$'
+  assert_match "$username" '^[a-zA-Z0-9_-]+$'
 }
