@@ -1,6 +1,6 @@
 # bashert
 
-![ci](https://github.com/chiefbiiko/bashert/workflows/ci/badge.svg)
+![ci](https://github.com/chiefbiiko/bashert/workflows/ci/badge.svg) [![bash](https://badges.frapsoft.com/bash/v1/bash.png?v=103)](./mod.sh)
 
 a small set of bash `assert_*` functions 4u2 write test suites in pure bash :DD
 
@@ -36,25 +36,25 @@ define a test case with a simple `bash` function declaration making use of the p
 test_users_list_200() {
   printf "test_users_list_200\n"
 
-  resp_head="$(mktemp)"
-  resp_body="$(mktemp)"
+  resp_head=$(mktemp)
+  resp_body=$(mktemp)
 
   lurc \
     -X GET \
-    -D "$resp_head" \
-    "https://jsonplaceholder.typicode.com/users" \
-  > "$resp_body"
+    -D $resp_head \
+    https://jsonplaceholder.typicode.com/users \
+  > $resp_body
 
-  assert_status "$resp_head" 200
+  assert_status $resp_head 200
 
-  count=$(jq 'length' "$resp_body")
+  count=$(jq length $resp_body)
 
   assert_gt $count 0
 
-  id="$(jq -r '.[0].id' "$resp_body")"
-  username="$(jq -r '.[0].username' "$resp_body")"
+  id=$(jq -r '.[0].id' $resp_body)
+  username="$(jq -r '.[0].username' $resp_body)"
 
-  assert_equal "$id" "1"
+  assert_equal $id 1
   assert_match "$username" '^[a-zA-Z0-9_-]+$'
 }
 ```
