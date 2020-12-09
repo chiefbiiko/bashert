@@ -12,8 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.4
 
-      - name: run the example test case
+      - name: run the example test case on ubuntu
+        if: startsWith(matrix.os, 'ubuntu')
         run: |
           source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
+          source ./test_suite.sh
+          test_users_list_200
+
+      - name: run the example test case on macos
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          source ./bashert.sh
           source ./test_suite.sh
           test_users_list_200

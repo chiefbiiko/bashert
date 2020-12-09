@@ -80,6 +80,8 @@ test_users_list_200() {
           test_users_list_200
 ```
 
+> `source`ing from a url like above only works on `ubuntu` runners
+
 ## license
 
 [MIT](./LICENSE)
