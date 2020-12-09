@@ -28,6 +28,12 @@ use `lurc` instead of plain `curl` to require `TLS 1.2` for every connection and
 
 ## usage
 
+free 2 use however u like
+
+anyways, find my personal usage conventions illustrated below
+
+> obviously, this needs 2 run in `bash` and you probly also want tools like `curl` and `jq` available in that shell - fortunately, when using github actions `ubuntu-*` and `macos-*` runners we get `curl` and `jq` preinstalled amongst other things
+
 ### `test_suite.sh`
 
 define a test case with a simple `bash` function declaration making use of the provided assertion helpers, fx:
@@ -61,15 +67,15 @@ test_users_list_200() {
 
 ### `.github/workflows/ci.yml`
 
-1. source `mod.sh` from a local copy or via the network
-2. source a `bash` file containing your own test case definitions which are basically just `bash` function declarations
+1. source `bashert.sh` from a local copy or via the network
+2. source your custom `test_suite.sh`
 3. call your `bash` test case functions
 
 ```bash
     steps:
       - uses: actions/checkout@v2.3.4
       - run: |
-          source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/master/mod.sh)
+          source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
           source ./test_suite.sh
           test_users_list_200
 ```
