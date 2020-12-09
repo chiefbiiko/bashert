@@ -14,6 +14,6 @@ jobs:
 
       - name: run the example test case
         run: |
-          source <(curl -sSf curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
-          source ./example_test_suite.sh
+          source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
+          source ./test_suite.sh
           test_users_list_200
