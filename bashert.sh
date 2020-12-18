@@ -1,3 +1,5 @@
+# Copyright (c) 2020 Noah Anabiik Schwarz. All rights reserved. MIT license.
+
 assert_status() {
   # usage: assert_status "$header_file" $status_code
   if [[ -z "$1" ]] || [[ -z "$2" ]]; then
