@@ -61,6 +61,19 @@ assert_files_equal_ignore_space() {
   fi
 }
 
+assert_files_equal() {
+  # usage: assert_files_equal "$file_a" "$file_b"
+  if [[ ! -f "$1" ]] || [[ ! -f "$2" ]]; then
+    >&2 printf "[assert_files_equal] missing file params\n"
+    exit 1
+  fi
+
+  if ! cmp --silent "$1" "$2"; then
+    >&2 printf "file contents are not equal\n"
+    exit 1
+  fi
+}
+
 assert_gt() {
   # usage: assert_gt $a $b
   if [[ -z "$1" ]] || [[ -z "$2" ]]; then

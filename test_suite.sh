@@ -1,3 +1,5 @@
+source ./bashert.sh
+
 test_users_list_200() {
   printf "test_users_list_200\n"
 
@@ -21,4 +23,16 @@ test_users_list_200() {
 
   assert_equal $id 1
   assert_match "$username" '^[a-zA-Z0-9_-]+$'
+}
+
+test_assert_files_equal() {
+  printf "test_assert_files_equal\n"
+
+  file_a=$(mktemp)
+  file_b=$(mktemp)
+  file_c=$(mktemp)
+  head -c 419 </dev/urandom > $file_a
+  cp $file_a $file_b
+
+  assert_files_equal $file_a $file_b
 }

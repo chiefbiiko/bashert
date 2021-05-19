@@ -13,6 +13,7 @@ assert_status ./curl_header_dump 204
 assert_equal twin twin
 assert_not_equal fraud fr@ud
 assert_match acab '^acab|ACAB$'
+assert_files_equal ./a ./b
 assert_files_equal_ignore_space ./a ./b
 assert_gt 419 255
 assert_lt -1 0
@@ -28,17 +29,14 @@ use `lurc` instead of plain `curl` to require `TLS 1.2` for every connection and
 
 ## usage
 
-free 2 use however u like
-
-anyways, find my personal usage conventions illustrated below
-
-> obviously, this needs 2 run in `bash` and you probly also want tools like `curl` and `jq` available in that shell - fortunately, when using github actions `ubuntu-*` and `macos-*` runners we get `curl` and `jq` preinstalled amongst other things
-
+`touch` two files `test_suite.sh` and `.github/workflows/ci.yml` as below
 ### `test_suite.sh`
 
-define a test case with a simple `bash` function declaration making use of the provided assertion helpers, fx:
+source `bashert.sh` from a local copy or via the network, then define test cases with simple `bash` function declarations making use of the provided assertion helpers, fx:
 
 ```bash
+source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.1.0/bashert.sh)
+
 test_users_list_200() {
   printf "test_users_list_200\n"
 
@@ -65,22 +63,22 @@ test_users_list_200() {
 }
 ```
 
+> `source`ing from a url like above only works on `ubuntu` runners
+
 ### `.github/workflows/ci.yml`
 
-1. source `bashert.sh` from a local copy or via the network
-2. source your custom `test_suite.sh`
-3. call your `bash` test case functions
+1. source your custom `test_suite.sh`
+2. call your `bash` test case functions
 
 ```bash
     steps:
       - uses: actions/checkout@v2.3.4
       - run: |
-          source <(curl -sSf https://raw.githubusercontent.com/chiefbiiko/bashert/v1.0.1/bashert.sh)
           source ./test_suite.sh
           test_users_list_200
 ```
 
-> `source`ing from a url like above only works on `ubuntu` runners
+> obviously, this needs 2 run in `bash` and you probly also want tools like `curl` and `jq` available in that shell - fortunately, when using github actions `ubuntu-*` and `macos-*` runners we get `curl` and `jq` preinstalled amongst other things
 
 ## license
 
